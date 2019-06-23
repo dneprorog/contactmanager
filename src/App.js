@@ -1,25 +1,54 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch
+} from 'react-router-dom';
+
+import Contacts from './components/contacts/Contacts';
+import Header from './components/layout/Header';
+import About from './components/pages/About';
+import AddContact from './components/contacts/AddContact';
+import NotFound from "./components/pages/NotFound";
+
+import { Provider } from './context';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Provider>
+          <Router>
+                <div>
+                    <Header />
+                    <div className="container">
+                        <Switch>
+                            <Route
+                                exact
+                                path="/"
+                                component={Contacts}
+                            />
+
+                            <Route
+                                exact
+                                path="/contact/add"
+                                component={AddContact}
+                            />
+
+                            <Route
+                                exact
+                                path="/about"
+                                component={About}
+                            />
+
+                            <Route
+                                component={NotFound}
+                            />
+                        </Switch>
+                    </div>
+                </div>
+          </Router>
+      </Provider>
   );
 }
 
